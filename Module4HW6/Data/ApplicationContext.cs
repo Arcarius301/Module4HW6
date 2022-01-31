@@ -9,7 +9,6 @@ namespace Module4HW6.Data
         public ApplicationContext(DbContextOptions<ApplicationContext> options)
             : base(options)
         {
-            Database.EnsureCreated();
         }
 
         public DbSet<Artist> Artist { get; set; } = null!;
