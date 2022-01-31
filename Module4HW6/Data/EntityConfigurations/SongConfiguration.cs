@@ -8,7 +8,7 @@ namespace Module4HW6.Data.EntityConfigurations
     {
         public void Configure(EntityTypeBuilder<Song> builder)
         {
-            builder.ToTable("Song").HasKey(s => s.Id);
+            builder.HasKey(s => s.Id);
             builder.Property(s => s.Id).HasColumnName("SongId").ValueGeneratedOnAdd();
             builder.Property(s => s.Title).IsRequired().HasMaxLength(50);
             builder.Property(s => s.Duration).IsRequired().HasMaxLength(5);

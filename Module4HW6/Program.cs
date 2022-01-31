@@ -1,23 +1,25 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection;
 using Module4HW6.Data;
+using Module4HW6.Helpers;
 
 namespace Module4HW6
 {
     public class Program
     {
-        public static void Main(string[] args)
+        public static async Task Main(string[] args)
         {
-            using (var context = new ContextFactory().CreateDbContext(args))
+            await using (var context = new ContextFactory().CreateDbContext(args))
             {
-                var result = context.Artist;
-
-                foreach (var item in result)
-                {
-                    Console.WriteLine(item);
-                }
+                var queries = new Queries(context);
+#if DEBUG
+                await QueryWrapper.Run(() => queries.FillDatabase(), args);
+#endif
             }
+
+            Console.Read();
         }
     }
 }

@@ -10,7 +10,7 @@ using Module4HW6.Helpers;
 
 namespace Module4HW6.Helpers
 {
-    public class QueryWrapper
+    public static class QueryWrapper
     {
         public static async Task Run(Func<Task> function, string[] args)
         {

@@ -8,7 +8,7 @@ namespace Module4HW6.Data.EntityConfigurations
     {
         public void Configure(EntityTypeBuilder<ArtistSong> builder)
         {
-            builder.ToTable("ArtistSong").HasKey(e => e.Id);
+            builder.HasKey(e => e.Id);
             builder.Property(e => e.Id).HasColumnName("ArtistSongId").ValueGeneratedOnAdd();
 
             builder.HasOne(e => e.Artist)

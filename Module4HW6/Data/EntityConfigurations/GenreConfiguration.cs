@@ -8,9 +8,8 @@ namespace Module4HW6.Data.EntityConfigurations
     {
         public void Configure(EntityTypeBuilder<Genre> builder)
         {
-            builder.ToTable("Genre").HasKey(g => g.Id);
+            builder.HasKey(g => g.Id);
             builder.Property(g => g.Id).HasColumnName("GenreId").ValueGeneratedOnAdd();
-            builder.HasAlternateKey(g => g.Title);
             builder.Property(g => g.Title).IsRequired().HasMaxLength(50);
         }
     }
