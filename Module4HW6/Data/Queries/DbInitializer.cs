@@ -1,18 +1,22 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 using Module4HW6.Data.Entities;
 
-namespace Module4HW6.Data
+namespace Module4HW6.Data.Queries
 {
-    public class Queries
+    public class DbInitializer
     {
         private readonly ApplicationContext _context;
 
-        public Queries(ApplicationContext context)
+        public DbInitializer(ApplicationContext context)
         {
             _context = context;
         }
 
-        public async Task FillDatabase()
+        public async Task AddData()
         {
             var genres = new List<Genre>
             {
@@ -55,13 +59,27 @@ namespace Module4HW6.Data
                 new ArtistSong { ArtistId = 1, SongId = 8 },
             };
 
-            await _context.AddRangeAsync(genres);
-            await _context.AddRangeAsync(artists);
-            await _context.AddRangeAsync(songs);
+            if (!_context.Genre.Any())
+            {
+                await _context.AddRangeAsync(genres);
+            }
+
+            if (!_context.Artist.Any())
+            {
+                await _context.AddRangeAsync(artists);
+            }
+
+            if (!_context.Song.Any())
+            {
+                await _context.AddRangeAsync(songs);
+            }
 
             await _context.SaveChangesAsync();
 
-            await _context.AddRangeAsync(artistsong);
+            if (!_context.ArtistSong.Any())
+            {
+                await _context.AddRangeAsync(artistsong);
+            }
 
             await _context.SaveChangesAsync();
         }

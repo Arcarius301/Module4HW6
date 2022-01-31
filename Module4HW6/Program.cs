@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 using Module4HW6.Data;
+using Module4HW6.Data.Queries;
 using Module4HW6.Helpers;
 
 namespace Module4HW6
@@ -13,10 +14,11 @@ namespace Module4HW6
         {
             await using (var context = new ContextFactory().CreateDbContext(args))
             {
-                var queries = new Queries(context);
 #if DEBUG
-                await QueryWrapper.Run(() => queries.FillDatabase(), args);
+                var initializer = new DbInitializer(context);
+                await QueryWrapper.Run(() => initializer.AddData(), args);
 #endif
+                var queries = new Queries(context);
             }
 
             Console.Read();
