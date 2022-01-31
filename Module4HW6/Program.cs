@@ -14,11 +14,14 @@ namespace Module4HW6
         {
             await using (var context = new ContextFactory().CreateDbContext(args))
             {
-#if DEBUG
+                #if DEBUG
                 var initializer = new DbInitializer(context);
                 await QueryWrapper.Run(() => initializer.AddData(), args);
-#endif
+                #endif
                 var queries = new Queries(context);
+                await QueryWrapper.Run(() => queries.ShowSongs(), args);
+                await QueryWrapper.Run(() => queries.ShowGroupedByGenre(), args);
+                await QueryWrapper.Run(() => queries.ShowFilteredSongs(), args);
             }
 
             Console.Read();
